@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+
+		<head>
+			<meta charset="utf-8">
+			
+			<title>CAR RENTAL</title>
+			
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			
+			<!-----------------  LINKS and SOURCES------------------------>
+			
+			<script src="JQ/jquery-1.10.2.min.js"></script>  <!-- jquery   -->
+			<script src="jQ/jquery.mobile-1.3.2.min.js"></script>	<!-- jquery   -->
+		    <script src="http://maps.googleapis.com/maps/api/js?key=####################&sensor=false" type="text/javascript"></script>
+			<script src="ui\min\jquery.ui.map.full.min.js" type="text/javascript"></script>	<!-- jquery map full  -->
+			<script src="ui\jquery.ui.map.extensions.js" type="text/javascript"></script>	<!-- jquery map extension  -->
+			<script type="text/javascript" src="https://www.google.com/jsapi"></script>		<!-- google jsapi  -->			
+			<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />		<!-- jquery css   -->				
+			<link rel="stylesheet" href="css/style.css" />		<!-- css  -->		
+			<script src="scripts/JavaScript.js"></script>	<!-- JavaScript  -->					
+			<script src="scripts/DATABASE.js"></script>	<!--  data base  -->			
+			<script src="scripts/canvas.js"></script>	<!--  canvas -->				
+			<script src="scripts/modernizr.js"></script> <!--  modernizer  -->
+			
+			<!-----------------  LINKS AND SOURCES ------------------------>
+			
+			<script type="text/javascript">		//modernizr
+
+			
+				if(!Modernizr.localstorage || !Modernizr.csstransitions || !Modernizr.borderradius || !Modernizr.textshadow || !Modernizr.cssgradients ||
+				!Modernizr.canvas	|| !Modernizr.geolocation|| !Modernizr.sharedworkers || !Modernizr.postmessage || !Modernizr.input.required ||
+				!Modernizr.inputtypes.tel || !Modernizr.inputtypes.email
+				|| !Modernizr.inputtypes.number){
+
+					alert(" Modernizr says: Some features may not be supported in your browser, this website might not work properly and we recommend that you upgrade it or get a different browser.");
+					
+				} 
+				
+			</script>
+			
+		</head>
+
+	
+<body>			
+<!----------------Index Page--------------------------------------->
+
+		<div data-role="page" id="home" style="background-image:url('img/backgroundpic/backgroundpic.jpg')">
+				<div data-role="header">
+					<h1> Welcome To Ella Rental</h1>
+				</div>
+				
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#login" data-rel="dialog" data-icon="info">Login</a></li>
+						<li><a href="#register" data-rel="dialog" data-icon="plus">New User</a></li>
+						<li><a href="#caReturn" data-rel="dialog" data-icon="back">Return-A-car</a></li>
+					</ul>
+				</div>
+				
+				
+			<div data-role="content"  class="ui-grid-b my-breakpoint" style="margin-top:40px;">
+			
+								<!-- about us -->					
+			
+			<div class="ui-block-a ui-corner-all ui-shadow" style="margin:0 auto; margin-right:auto; margin-left:auto;padding: 1em; background: rgba(255, 251, 242, .7);">
+				<h3>About Us</h3>
+				<p>
+				EllaRental offers a wide variety of car leasing, and hourly rental programs – local car rental customers are picked up at no extra cost.
+				In addition, the EllaRental Holdings Foundation has contributed more than $200 million to thousands of local non-profits focused on community improvement,
+				education and environmental stewardship.</p>
+				
+				Founded in 1957,EllaRental is an internationally recognized brand with more than 6,500 neighborhood and airport locations in the United States,
+				Canada, the U.K., Ireland, Germany, israel,France and Spain, as well as franchise locations throughout Europe.
+				Through tremendous leadership and the entrepreneurial spirit of our employees,
+				we have built the largest car rental brand in North America, known for exceptionally low rates and outstanding customer service. 
+				
+				</div>	
+				<img src="img/front pagepic/About us.jpg" class="ui-corner-all ui-shadow"  style="width:50%; float:right "/>
+			</div>	
+		
+				<div data-role="footer" data-position="fixed">
+					<h1 class="copyright">&copy All rights reserved</h1>
+				</div>
+			</div>
+			
+<!----------------Index Page--------------------------------------->
+
+<!----------------Return A Car form---------------------->		
+
+	
+			<div data-role="page" id="caReturn">
+				<div data-role="header">
+					<h1>Return car</h1>
+				</div>
+				
+				<div data-role="content">
+					<div id="ReturnCarDialog">
+					<form onsubmit="return returnCar()">
+						<label for="LicensePlate">Car License Plate:</label>
+						<input type="text" id="LicensePlate" pattern="[0-9]{2}-[0-9]{3}-[0-9]{2}" placeholder="XX-XXX-XX" autofocus required/>
+						<input type="submit" value="Return Car" data-inline="true" data-mini="true" data-icon="check"/>			
+					</form>
+					</div>
+					
+					<div data-role="popup" id="ReturnPop" data-overlay-theme="a" data-position-to="#LicensePlate">
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+						<br>
+						<p>Plate.<p>
+						<br>
+					</div>
+					
+				</div>
+					
+			</div>
+			
+<!----------------Return Car form ----------------------------->				
+			
+<!----------------Catalog--------------------------------------->	
+
+			<div data-role="page" id="catalog">
+				<div data-role="header">
+					<a href="#" onclick="refresh()" data-role="button" data-inline="true" data-icon="delete">Logout</a>
+					<h1>Cars list</h1>
+				</div>
+				
+			<div data-role="content" class="ui-grid-a my-breakpoint">	
+				<div class="ui-block-a" data-inset="true">
+					<h3>Select your car:</h3>
+					<div id="carsList" data-role="collapsible-set">
+					<!-- / collapsible list will show here -->	
+					</div>
+				</div>
+				<div class="ui-block-b">
+					<canvas id="myCanvas" style="margin: 3px" width="529px" height="298px">
+					Update your browser to enjoy canvas!
+					</canvas>
+				</div>
+				
+				</div>
+				
+				<div data-role="footer" data-position="fixed">
+					<h1 class="copyright">&copy All rights reserved</h1>
+				</div>
+			</div>
+<!----------------Catalog--------------------------------------->	
+
+		 
+		 
+<!----------------Trip Calculate------------------------------->
+			 
+			<div data-role="page" id="tripCalc">
+				<div data-role="header">
+					<a href="#" onclick="refresh()" data-role="button" data-inline="true" data-icon="delete">Logout</a>
+					<h1>Calculate</h1>
+				</div>
+				
+				<div data-role="content"  class="ui-grid-b my-breakpoint">
+				
+				<div class="ui-block-a ui-corner-all ui-shadow" style="padding: 1em">
+				
+				<audio controls id="play">
+						
+						<source src="audio/Waiting.mp3" type="audio/mpeg">
+						Your browser does not support the audio tag.
+					</audio>
+					<h3>1. Search your destination</h3>
+					<div id="map_canvas" style="height: 200px; width: 100%"></div>
+					<p>
+						<label for="to">To</label>
+						<input id="to" class="ui-bar-c" type="text" value="נהריה" />
+					</p>
+					<label for="Sdist">Distance to destination:</label>
+					<input type="text" id="Sdist" disabled/>
+					<a id="submit" href="#" data-role="button" data-icon="search" >Calculate distance</a>
+				</div>
+				<div class="ui-block-b ui-corner-all ui-shadow" style="padding: 1em; margin: 0.1em;">
+						<h3>2. Calculate rent price </h3>
+						
+						<label for="Scar">Selected Car info:</label>
+						
+						<input type="text" id="Scar" disabled/>
+						
+						<img id="Ssrc" width="100%"/>
+						
+						<label for="Price">Rent price is:</label>
+						
+						<input type="text" id="Price" disabled/>
+						
+						<input type="button" data-icon="gear"  value="Calculate price" onclick="callWorker()"/>
+						<label for="Syear">Model Year:</label>
+						
+						<input type="text" id="Syear" disabled/>
+						
+						<label for="Sgear">Gear:</label>
+						
+						<input type="text" id="Sgear" disabled/>
+						
+					<input type="button" id="orderButton" data-icon="check" value="Confirm order" onclick="return confirmOrder()"/>
+					<input type="button" id="orderButton" data-icon="delete" value="Cancel order" onclick="refresh()"/>
+				</div>
+				
+				</div>
+				<div data-role="popup" id="Popalert" data-overlay-theme="a" data-position-to="#Price">
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+						<br>
+						<p>Please calculate distance & price.<p>
+						<br>
+				</div>
+				<div data-role="popup" id="Popalert1" data-overlay-theme="a" data-position-to="#to">
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+						<br>
+						<p>Please calculate distance first.<p>
+						<br>
+				</div>
+				<div data-role="footer" data-position="fixed">
+					<h1 class="copyright">&copy All rights reserved</h1>
+				</div>
+			</div>
+			
+<!----------------Trip Calculate--------------------------------------->	
+
+
+			
+<!----------------Login Dialog--------------------------------------->			
+
+			<div data-role="page" id="login">
+				<div data-role="header">
+					<h1>Please Login</h1>
+				</div>
+				
+				<div data-role="content">
+				<div id="loginDialog">
+					<label for="loginID">ID Number:</label>
+					<td><input type="text" id="loginID" pattern="[0-9]{9}" placeholder="9 numbers" autofocus required/></td>
+
+					<label for="loginPassword">Password:</label>
+					<input type="password" id="loginPassword" required />
+							
+					<input type="button" value="Login" onclick="logIn()" data-mini="true" data-inline="true" data-icon="check"/>					
+
+					<div data-role="popup" id="loginPop" data-overlay-theme="a" data-position-to="#loginID">
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+						<br>
+						<p>Wrong Username or Password.<p>
+						<br>
+					</div>
+				</div>
+				</div>
+					
+			</div>
+<!----------------LoginDialog--------------------------------------->
+
+
+<!----------------RegisterDialog--------------------------------------->	
+		
+			<div data-role="page" id="register">
+				<div data-role="header">
+					<h1>Register</h1>
+				</div>
+				
+				<div data-role="content">
+					<div id="RegisterDialog">
+					<form action="" id="form" method="post" data-ajax="false" onsubmit="return validateForm()">
+					<ul data-role="listview">
+						<li data-role="fieldcontain">
+							<label for="idNumber">ID Number:</label>
+							<input type="text" name="id" id="idNumber" pattern="[0-9]{9}" placeholder="9 numbers" onchange="savefield('idNumber')" autofocus required/>
+						</li>
+						<li data-role="fieldcontain">
+							<label for="fName">First Name:</label>
+							<input type="text" name="fName" id="fName" pattern="[a-zA-zא-ת]{2,20}" placeholder="First name" onchange="savefield('fName')" required/>
+						</li>
+						<li data-role="fieldcontain">
+							<label for="LName">Last Name:</label>
+							<td><input type="text" name="LName" id="LName" pattern="[a-zA-zא-ת]{2,20}" placeholder="Last name" onchange="savefield('LName')" required/></td>						
+						</li>
+						<li data-role="fieldcontain">
+							<label for="eMail">Email:</label>
+							<input type="email" name="eMail" id="eMail" placeholder="Your@name.com" onchange="savefield('eMail')" required/>					
+						</li>
+						<li data-role="fieldcontain">
+							<label for="landNum">Landline Number:</label>
+							<input type="tel" name="landNum" id="landNum" pattern="[0-9]{2,3}-[0-9]{7}" placeholder="XX(X)-XXXXXXX" onchange="savefield('landNum')"required />						
+						</li>
+						<li data-role="fieldcontain">
+							<label for="mobileNum">Mobile Number:</label>
+							<input type="tel" name="mobileNum" id="mobileNum" pattern="[0-9]{3}-[0-9]{7}" placeholder="XXX-XXXXXXX" onchange="savefield('mobileNum')" required/>
+						</li>
+						<li data-role="fieldcontain">
+							<label for="birthDate">Birth Date:</label>
+							<input type="date" name="birthDate" id="birthDate" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" placeholder="01/01/1900" onchange="savefield('birthDate')" required/>						
+						</li>
+						<li data-role="fieldcontain">
+							<label for="licenseNum">License Number:</label>
+							<input type="text" name="licenseNum" id="licenseNum" pattern="[0-9]{7}" placeholder="7 numbers" onchange="savefield('licenseNum')" required />					
+						</li>
+						<li data-role="fieldcontain">
+							<label for="Password">Password:</label>
+							<input type="password" name="Password" id="Password" onchange="savefield('Password')" placeholder="UpperCase, LowerCase and Number" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required />					
+						</li>
+
+						<li>
+							<input type="submit" value="Submit" data-inline="true"  data-mini="true" data-icon="check"/>
+							<input type="button" value="Reset" data-inline="true" data-mini="true" data-icon="delete" onclick="clearForm()"/>					
+						</li>
+				</form>
+
+					</div>
+				<div data-role="popup" data-overlay-theme="a" id="RegistrationPopup" data-position-to="#landNum">
+					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+					<br>
+					<p>Please fill at least one phone number.<p>
+					<br>
+				<div data-role="popup" data-overlay-theme="a" id="RegisterComplete">
+					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+					<br>
+					<p>Registration Completed.<p>
+					<br>
+				</div>
+				</div>
+				</div>
+
+<!----------------Register Dialog---------------------------->			
+
+<!---------------End-Of-Main------------------------------->		
+	
+</body>
+
+</html>

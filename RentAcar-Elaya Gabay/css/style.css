@@ -1,0 +1,39 @@
+
+	
+	
+	
+	.my-breakpoint .ui-block-a, 
+	.my-breakpoint .ui-block-b, 
+	.my-breakpoint .ui-block-c { 
+		width: 100%; 
+		float: none; 
+	}
+
+	
+		@media all and (min-width: 50em){
+	
+        .my-breakpoint .ui-block-a 
+		{ 
+		  float:left; 
+          width: 99%; 
+		}
+		.my-breakpoint .ui-block-b,
+		.my-breakpoint .ui-block-c { 
+		  float:left; 
+          width: 49.2%; 
+		}
+	}
+	
+	@media all and (min-width: 75em){
+
+        .my-breakpoint .ui-block-a 
+		 { 
+		  float:left; 
+          width: 49.95%; 
+		}
+		.my-breakpoint .ui-block-b, 
+		.my-breakpoint .ui-block-c { 
+		  float:left; 
+          width: 24.925%; 
+		}
+	}
